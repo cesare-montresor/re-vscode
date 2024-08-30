@@ -43,14 +43,45 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('re-vscode.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from RE VSCode!');
+	var commands = [
+		{'cmd':"RazorEnhaced.PlayScript",   'fn': CommandPlayScript},
+		{'cmd':"RazorEnhaced.StopScript",   'fn':CommandStopScript},
+		{'cmd':"RazorEnhaced.PauseScript",  'fn':CommandPauseScript},
+		{'cmd':"RazorEnhaced.ResumeScript", 'fn':CommandResumeScript},
+		{'cmd':"RazorEnhaced.Refresh",      'fn':CommandRefresh},
+	];
+	commands.forEach((command)=>{
+		let disposable = vscode.commands.registerCommand(command['cmd'], command['fn']);
+		context.subscriptions.push(disposable);
 	});
-
-	context.subscriptions.push(disposable);
+	 
 }
 
 // This method is called when your extension is deactivated
 export function deactivate() {}
+
+
+function CommandPlayScript(node: vscode.TreeItem){
+	var scriptNode = node as REScriptNode;
+	client.sendScriptAction(scriptNode.fullpath, 'run');
+	console.log('Command:PlayScript:',scriptNode);
+
+}
+function CommandStopScript(node: vscode.TreeItem){
+	var scriptNode = node as REScriptNode;
+	client.sendScriptAction(scriptNode.fullpath, 'stop');
+	console.log('Command:PlayScript:',scriptNode);
+}
+function CommandPauseScript(node: vscode.TreeItem){
+	var scriptNode = node as REScriptNode;
+	client.sendScriptAction(scriptNode.fullpath, 'pause');
+	console.log('Command:PlayScript:',scriptNode);
+}
+function CommandResumeScript(node: vscode.TreeItem){
+	var scriptNode = node as REScriptNode;
+	client.sendScriptAction(scriptNode.fullpath, 'resume');
+	console.log('Command:PlayScript:',scriptNode);
+}
+function CommandRefresh(node: vscode.TreeItem){
+	var scriptMessage = client.getScripts();
+}

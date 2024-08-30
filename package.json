@@ -6,6 +6,16 @@
   "engines": {
     "vscode": "^1.92.0"
   },
+  "homepage": "https://github.com/GorvGoyl/Shortcut-Menu-Bar-VSCode-Extension",
+  "keywords": [
+    "ultima online",
+    "assistant",
+    "editor",
+    "python",
+    "csharp",
+    "uosteam",
+    "game assistant"
+  ],
   "categories": [
     "Other"
   ],
@@ -16,10 +26,64 @@
   "contributes": {
     "commands": [
       {
-        "command": "re-vscode.helloWorld",
-        "title": "Hello World"
+        "command": "RazorEnhaced.PlayScript",
+        "title": "Play Script",
+        "icon": {"light": "./media/play-black.svg", "dark": "./media/play-white.svg"}
+      },
+      {
+        "command": "RazorEnhaced.StopScript",
+        "title": "Stop Script",
+        
+        "icon": {"light": "./media/stop-black.svg", "dark": "./media/stop-white.svg"}
+      },
+      {
+        "command": "RazorEnhaced.PauseScript",
+        "title": "Pause Script",
+        "icon": {"light": "./media/pause-black.svg", "dark": "./media/pause-white.svg"}
+      },
+      {
+        "command": "RazorEnhaced.ResumeScript",
+        "title": "Resume Script",
+        "icon": {"light": "./media/resume-black.svg", "dark": "./media/resume-white.svg"}
+      },
+      {
+        "command": "RazorEnhaced.Refresh",
+        "title": "Refresh",
+
+        "icon": {"light": "./media/refresh-black.svg", "dark": "./media/refresh-white.svg"}
       }
     ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "RazorEnhaced.Refresh",
+          "when": "true || view == REScriptListView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "RazorEnhaced.PlayScript",
+          "when": "true || view == REScriptListView && viewItem == REScriptNode ",
+          "group": "inline"
+        },
+        {
+          "command": "RazorEnhaced.StopScript",
+          "when": "true || view == REScriptListView && viewItem == REScriptNode",
+          "group": "inline"
+        },
+        {
+          "command": "RazorEnhaced.PauseScript",
+          "when": "true || view == REScriptListView && viewItem == REScriptNode",
+          "group": "inline"
+        },
+        {
+          "command": "RazorEnhaced.ResumeScript",
+          "when": "true || view == REScriptListView && viewItem == REScriptNode",
+          "group": "inline"
+        }
+      ]
+    },
     "viewsContainers": {
       "activitybar": [
         {
